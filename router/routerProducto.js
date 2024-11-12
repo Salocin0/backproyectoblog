@@ -4,11 +4,11 @@ import { isAdmin, isLogged } from "../middleware/authmiddleware.js";
 const routerProducto = express.Router();
 
 
-routerProducto.get("/", getProductsController) // productos/
-routerProducto.get("/:id",isLogged, getProductController) // productos/:id
-routerProducto.post("/",isLogged,isAdmin, createProductController) // productos/
-routerProducto.put("/:id",isLogged,isAdmin, updateProductController) // productos/:id
-routerProducto.delete("/:id",isLogged,isAdmin, deleteProductController) // productos/:id
-routerProducto.delete("/definitivo/:id",isLogged,isAdmin, deleteDefinitiveProductController) // productos/definitivo/:id
+routerProducto.get("/",validarproductomidleware, getProductsController) // 
+routerProducto.get("/:id",isLogged, getProductController) // 
+routerProducto.post("/",isLogged,isAdmin, createProductController) // 
+routerProducto.put("/:id",isLogged,isAdmin, updateProductController) // 
+routerProducto.delete("/:id",isLogged,isAdmin, deleteProductController) //
+routerProducto.delete("/definitivo/:id",isLogged,isAdmin, deleteDefinitiveProductController) // 
 
 export default routerProducto;

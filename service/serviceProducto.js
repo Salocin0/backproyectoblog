@@ -1,46 +1,37 @@
-let productos = [
-    { id: 1, nombre: "Producto 1", precio: 100, estado: true },
-    { id: 2, nombre: "Producto 2", precio: 200, estado: true },
-    { id: 3, nombre: "Producto 3", precio: 300, estado: true },
-  ];
+import Producto from "../model/modelProducto.js";
+import crypto from "crypto";
 
-export const getProducts = () => {
-    console.log("get productos service");
+export const getProducts = async () => {
+    const productos = await Producto.find({estado:true})
     return productos;
 };
 
-export const getProduct = (id) => {
-    const producto = productos.find((producto) => producto.id == id);
+export const getProduct = async (id) => {
+    const producto = await Producto.findOne({id:id}) // no usamos el findById porque machea con el _id
     return producto;
 };
 
-export const createProduct = (nombre,precio) => {
-    console.log(nombre,precio)
+export const createProduct = async (nombre,precio) => {
     const producto = {
-        id: productos.length + 1,
+        id: crypto.randomUUID(),
         nombre: nombre,
-        precio: precio,
-        estado: true,
-      };
-      productos.push(producto);
-      return producto;
+        precio: precio
+    };
+    const nuevoProducto = await Producto.create(producto);
+    return nuevoProducto;
 };
 
-export const updateProduct = (id, nombre,precio) => {
-    const producto = productos.find((producto) => producto.id == id);
-    producto.nombre = nombre;
-    producto.precio = precio;
+export const updateProduct = async(id, nombre,precio) => {
+    const producto = await Producto.findOneAndUpdate({id:id}, {nombre:nombre,precio:precio})
     return producto;
 };
 
-export const deleteProduct = (id) => {
-    const producto = productos.find((producto) => producto.id == id);
-    producto.estado = false;
+export const deleteProduct = async (id) => {//actualizar
+    const producto = await Producto.findOneAndUpdate({id:id}, {estado:false})
     return producto;
 };
 
-export const deleteDefinitiveProduct = (id) => {
-    const producto = productos.find((producto) => producto.id == id);
-    productos = productos.filter((producto) => producto.id != id);
+export const deleteDefinitiveProduct = async (id) => {//borrar
+    const producto = await Producto.findOneAndDelete({id:id})
     return producto;
 };

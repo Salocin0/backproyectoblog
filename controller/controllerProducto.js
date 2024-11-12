@@ -6,10 +6,9 @@ import {
   deleteProduct,
   deleteDefinitiveProduct,
 } from "../service/serviceProducto.js";
-export const getProductsController = (req, res) => {
-  //no tiene parametros para sacar del req  queda asi
+export const getProductsController = async (req, res) => {
   try {
-    const products = getProducts();
+    const products = await getProducts();
     res.status(200).json(products);
   } catch (error) {
     console.log(error);
@@ -17,10 +16,10 @@ export const getProductsController = (req, res) => {
   }
 };
 
-export const getProductController = (req, res) => {
+export const getProductController = async (req, res) => {
   try {
     const id = req.params.id;
-    const producto = getProduct(id);
+    const producto = await getProduct(id);
     if (!producto) {
       return res.status(400).send("producto no encontrado");
     }
@@ -30,13 +29,13 @@ export const getProductController = (req, res) => {
   }
 };
 
-export const createProductController = (req, res) => {
+export const createProductController = async (req, res) => {
   try {
     const { nombre, precio } = req.body;
     if (!nombre || !precio) {
       return res.status(400).send("Faltan datos");
     }
-    const producto = createProduct(nombre, precio);
+    const producto = await createProduct(nombre, precio);
     return res.status(200).json(producto);
   } catch (error) {
     console.log(error);
@@ -44,31 +43,31 @@ export const createProductController = (req, res) => {
   }
 };
 
-export const updateProductController = (req, res) => {
+export const updateProductController = async (req, res) => {
   try {
     const id = req.params.id;
     const { nombre, precio } = req.body;
-    const producto = updateProduct(id, nombre, precio);
+    const producto = await updateProduct(id, nombre, precio);
     res.status(200).json(producto);
   } catch (error) {
     return res.status(500).send("error server");
   }
 };
 
-export const deleteProductController = (req, res) => {
+export const deleteProductController = async (req, res) => {
   try {
     const id = req.params.id;
-    const producto = deleteProduct(id);
+    const producto = await deleteProduct(id);
     res.status(200).json(producto);
   } catch (error) {
     return res.status(500).send("error server");
   }
 };
 
-export const deleteDefinitiveProductController = (req, res) => {
+export const deleteDefinitiveProductController = async (req, res) => {
     try {
         const id = req.params.id;
-        const producto = deleteDefinitiveProduct(id);
+        const producto = await deleteDefinitiveProduct(id);
         res.status(200).json(producto);
     } catch (error) {
         return res.status(500).send("error server");

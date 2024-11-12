@@ -1,8 +1,11 @@
 import express from "express";
 import routerProducto from "./router/routerProducto.js";
 import cors from "cors";
+import env from "dotenv";
+import mongoose from "mongoose";
 
-const PORT = 3000;
+env.config()
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -15,6 +18,14 @@ app.use("/productos", routerProducto);
 
 app.use((req, res) => {
   res.status(404).send("<h1>404<h1>");
+});
+
+mongoose.connect(process.env.MONGO_URL)
+.then(() => {
+  console.log("Connected to MongoDB");
+})
+.catch((error) => {
+  console.error("Error connecting to MongoDB:", error);
 });
 
 app.listen(PORT, () => {
