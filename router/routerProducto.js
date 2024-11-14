@@ -4,7 +4,7 @@ import { isAdmin, isLogged } from "../middleware/authmiddleware.js";
 const routerProducto = express.Router();
 
 
-routerProducto.get("/",validarproductomidleware, getProductsController) // 
+routerProducto.get("/", getProductsController) // 
 routerProducto.get("/:id",isLogged, getProductController) // 
 routerProducto.post("/",isLogged,isAdmin, createProductController) // 
 routerProducto.put("/:id",isLogged,isAdmin, updateProductController) // 
