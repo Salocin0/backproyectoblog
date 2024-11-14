@@ -3,6 +3,7 @@ import routerProducto from "./router/routerProducto.js";
 import cors from "cors";
 import env from "dotenv";
 import mongoose from "mongoose";
+import routerBlog from "./router/routerBlog.js";
 
 env.config()
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(cors())
 
 
 app.use("/productos", routerProducto);
+app.use("/blogs", routerBlog)
 
 
 app.use((req, res) => {
