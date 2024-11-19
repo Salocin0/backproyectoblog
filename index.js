@@ -4,6 +4,8 @@ import cors from "cors";
 import env from "dotenv";
 import mongoose from "mongoose";
 import routerBlog from "./router/routerBlog.js";
+import swaggerUI from "swagger-ui-express"
+import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 env.config()
 const PORT = process.env.PORT || 3000;
@@ -16,6 +18,7 @@ app.use(cors())
 
 app.use("/productos", routerProducto);
 app.use("/blogs", routerBlog)
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 
 app.use((req, res) => {
