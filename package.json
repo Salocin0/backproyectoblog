@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "20.18.0"
+  },
   "scripts": {
     "dev": "dotenv -e .dev.env nodemon index.js",
     "prod": "dotenv -e .prod.env nodemon index.js",
