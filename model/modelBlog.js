@@ -8,7 +8,7 @@ const blogSchema = new mongoose.Schema({
     imagen:{ type: String, required: true },
     fechaPublicacion:{ type: Date, default: new Date },
     isHabilitado: {type: Boolean, default: true},
-    //autor: object.id
+    autor: { type: mongoose.Schema.Types.ObjectId, ref: 'Autor', required: true },
 })
 
 const Blog = mongoose.model("Blog", blogSchema);

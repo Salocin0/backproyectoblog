@@ -1,4 +1,4 @@
-import { getBlogs, getBlog, createBlog, updateBlog, deleteBlog } from "../service/serviceBlog.js";
+import { getBlogs, getBlog, createBlog, updateBlog, deleteBlog,getBlogPopulado } from "../service/serviceBlog.js";
 export const getblogscontroller = async (req, res) => {
     try {
         const blogs = await getBlogs();
@@ -22,15 +22,27 @@ export const getblogcontroller = async (req, res) => {
         return res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
     }
 }
+export const getblogPopuladocontroller = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const blog = await getBlogPopulado(id);
+        if(!blog){
+            return res.status(400).json({status: "error", menssage: "blog no encontrado", data:{}});
+        }
+        return res.status(200).json({status: "success", menssage: "blog obtenido", data:blog});
+    } catch (error) {
+        return res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
+    }
+}
 export const createblogcontroller = async(req, res) => {
     try {
-        const {titulo,descripcion,contenido,imagen} = req.body;
+        const {titulo,descripcion,contenido,imagen,autor} = req.body;
         
-        if (!titulo || !descripcion || !contenido || !imagen) {
+        if (!titulo || !descripcion || !contenido || !imagen || !autor) {
             return res.status(400).json({status: "error", menssage: "faltan datos", data:{}});
         }
         
-        const nuevoBlog = await createBlog(titulo,descripcion,contenido,imagen);
+        const nuevoBlog = await createBlog(titulo,descripcion,contenido,imagen, autor);
         
         if(nuevoBlog){
             return res.status(201).json({status: "success", menssage: "blog creado", data:nuevoBlog});

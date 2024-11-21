@@ -5,10 +5,34 @@ import {
   updateProduct,
   deleteProduct,
   deleteDefinitiveProduct,
+  getProductsPaginado,
+  getProductsFiltrados
 } from "../service/serviceProducto.js";
 export const getProductsController = async (req, res) => {
   try {
     const products = await getProducts();
+    res.status(200).json({status: "success", menssage: "productos obtenidos", data:products});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
+  }
+};
+
+export const getProductsFiltradosController = async (req, res) => {
+  try {
+    const {nombre,precioMin,precioMax,orderby,order} = req.query;
+    const products = await getProductsFiltrados(nombre,precioMin,precioMax,orderby,order);
+    res.status(200).json({status: "success", menssage: "productos obtenidos", data:products});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
+  }
+};
+
+export const getProductsPaginadoController = async (req, res) => {
+  try {
+    const {page = 1, limit = 2} = req.query; //localhost:3000/productos?page=1&limit=2
+    const products = await getProductsPaginado(page, limit);
     res.status(200).json({status: "success", menssage: "productos obtenidos", data:products});
   } catch (error) {
     console.log(error);
