@@ -60,7 +60,7 @@ export const updateblogcontroller = async (req, res) => {
         const id = req.params.id;
         const {titulo,descripcion,contenido,imagen} = req.body;
 
-        if (!titulo || !descripcion || !contenido || !imagen) {
+        if (!titulo || !descripcion || !contenido || !imagen) { //no se actualiza el autor
             return res.status(400).json({status: "error", menssage: "faltan datos", data:{}});
         }
 

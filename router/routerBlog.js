@@ -1,13 +1,14 @@
 import express from "express";
 import { getblogscontroller,getblogcontroller,createblogcontroller,updateblogcontroller,getblogPopuladocontroller,deleteblogcontroller } from "../controller/controllerBlog.js";
-
+import { validationPostBlog, validationPutBlog, validationIdBlog } from "../validations/validationBlog.js";
+import { validationMiddleware } from "../middleware/validationmiddleware.js";
 const routerBlog = express.Router();
 
 routerBlog.get("/",getblogscontroller)
-routerBlog.get("/:id",getblogcontroller)
-routerBlog.get("/populado/:id",getblogPopuladocontroller) 
-routerBlog.post("/",createblogcontroller) 
-routerBlog.put("/:id",updateblogcontroller)
-routerBlog.delete("/:id",deleteblogcontroller)
+routerBlog.get("/:id",validationIdBlog,validationMiddleware,getblogcontroller)
+routerBlog.get("/populado/:id",validationIdBlog,validationMiddleware,getblogPopuladocontroller) 
+routerBlog.post("/",validationPostBlog,validationMiddleware,createblogcontroller) 
+routerBlog.put("/:id",validationPostBlog,validationIdBlog,validationMiddleware,updateblogcontroller)
+routerBlog.delete("/:id",validationIdBlog,validationMiddleware,deleteblogcontroller)
 
 export default routerBlog;
