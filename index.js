@@ -8,6 +8,8 @@ import swaggerUI from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" assert { type: "json" };
 import routerAutor from "./router/routerAutor.js";
 import { brotliMiddleware } from "./middleware/brotlimiddleware.js";
+import routerUsuario from "./router/routerUsuario.js";
+import { authMiddleware } from "./middleware/authmiddleware.js";
 
 env.config();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +17,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization","x-refresh-token"],
+  }
+));
 
 /*app.use(
   compression({
@@ -40,6 +47,12 @@ app.use("/productos", routerProducto);
 app.use("/blogs", routerBlog);
 app.use("/autores", routerAutor);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use("/auth", routerUsuario)
+
+app.get("/protected",authMiddleware, (req, res) => {
+  res.json({ message: "Acceso permitido", user: req.user });
+});
+
 
 app.get("/pruebacompresion",brotliMiddleware, (req, res) => {
   const productos = Array.from({ length: 10000 }, (_, i) => ({

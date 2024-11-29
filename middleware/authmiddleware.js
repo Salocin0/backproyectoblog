@@ -1,16 +1,14 @@
-export const isLogged = (req, res, next) => {
-    const userLogged = true;
-    if (userLogged) {
-    next();
-    } else {
-        res.status(401).send("no estas logeado");
+import jwt from "jsonwebtoken";
+
+export const authMiddleware = (req, res, next) => {
+    const token = req.headers["authorization"];
+    console.log(token)
+    if (!token) {
+        return res.status(401).json({status: "error", menssage: "no autorizado", data:{}});
     }
-}
-export const isAdmin = (req, res, next) => {
-    const userLogged = true;
-    if (userLogged) {
-    next();
-    } else {
-        res.status(401).send("no sos admin");
+    const tokenData = jwt.verify(token, process.env.JWT_SECRET || "unaclavesecreta");
+    if (!tokenData) {
+        return res.status(401).json({status: "error", menssage: "no autorizado", data:{}});
     }
+    next();
 }

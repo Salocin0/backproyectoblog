@@ -9,7 +9,6 @@ import {
   deleteProductController,
   deleteDefinitiveProductController,
 } from "../controller/controllerProducto.js";
-import { isAdmin, isLogged } from "../middleware/authmiddleware.js";
 import { brotliMiddleware } from "../middleware/brotlimiddleware.js";
 import {
   validationPostProducto,
@@ -19,6 +18,7 @@ import {
   validationgetProductoFiltrado,
 } from "../validations/validationProducto.js";
 import { validationMiddleware } from "../middleware/validationmiddleware.js";
+import { authMiddleware } from "../middleware/authmiddleware.js";
 const routerProducto = express.Router();
 
 routerProducto.get("/", brotliMiddleware, getProductsController); //
@@ -45,6 +45,7 @@ routerProducto.get(
 
 routerProducto.post(
   "/",
+  authMiddleware,
   validationPostProducto,
   validationMiddleware,
   createProductController
@@ -52,18 +53,22 @@ routerProducto.post(
 
 routerProducto.put(
   "/:id",
+  authMiddleware,
+  brotliMiddleware,
   validationPutProducto,
   validationMiddleware,
   updateProductController
 ); //
 routerProducto.delete(
   "/:id",
+  authMiddleware,
   validationIdProducto,
   validationMiddleware,
   deleteProductController
 ); //
 routerProducto.delete(
   "/definitivo/:id",
+  authMiddleware,
   validationIdProducto,
   validationMiddleware,
   deleteDefinitiveProductController
