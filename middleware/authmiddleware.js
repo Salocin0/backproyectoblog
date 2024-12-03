@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
-    const token = req.headers["authorization"];
+    try {
+        const token = req.headers["authorization"];
     console.log(token)
     if (!token) {
         return res.status(401).json({status: "error", menssage: "no autorizado", data:{}});
@@ -11,4 +12,8 @@ export const authMiddleware = (req, res, next) => {
         return res.status(401).json({status: "error", menssage: "no autorizado", data:{}});
     }
     next();
+    } catch (error) {
+        console.log(error)
+    }
+    
 }

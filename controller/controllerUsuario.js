@@ -2,8 +2,8 @@ import { RegisterUser, LoginUser, RefreshToken } from "../service/serviceUsuario
 
 export const RegisterUserController = async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await RegisterUser(username, password);
+        const { username, password,email,fechaNacimiento } = req.body;
+        const user = await RegisterUser(username, password,email,fechaNacimiento);
         if (user===-1) {
             return res.status(400).json({status: "error", menssage: "error en el servidor", data:{}});
         }else{

@@ -10,6 +10,7 @@ import routerAutor from "./router/routerAutor.js";
 import { brotliMiddleware } from "./middleware/brotlimiddleware.js";
 import routerUsuario from "./router/routerUsuario.js";
 import { authMiddleware } from "./middleware/authmiddleware.js";
+import { logger } from "./config/Winston.js";
 
 env.config();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,11 @@ app.use(cors(
     allowedHeaders: ["Content-Type", "Authorization","x-refresh-token"],
   }
 ));
+
+app.use((req, res, next) => {
+  logger.error(`${req.method} ${req.url}`);
+  next();
+});
 
 /*app.use(
   compression({

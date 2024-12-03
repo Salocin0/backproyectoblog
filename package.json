@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "dotenv -e .dev.env nodemon index.js",
     "prod": "dotenv -e .prod.env nodemon index.js",
-    "start": "node index.js"
+    "start": "dotenv -e .prod.env nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,9 @@
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

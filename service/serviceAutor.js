@@ -1,4 +1,5 @@
 import Autor from "../model/modelAutor.js"
+import crypto from "crypto"
 export const getsAutores = async () => {
     const autores = await Autor.find({isHabilitado: true});
     return autores
