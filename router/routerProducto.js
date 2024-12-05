@@ -31,21 +31,21 @@ routerProducto.get(
 ); //
 routerProducto.get(
   "/filtrado",
-  brotliMiddleware,
-  validationgetProductoFiltrado,
-  validationMiddleware,
+  brotliMiddleware, //comprime la salida
+  validationgetProductoFiltrado, //valida y guarda en el req
+  validationMiddleware, // busca en req y tira error
   getProductsFiltradosController
 ); //
 routerProducto.get(
   "/:id",
-  validationIdProducto,
-  validationMiddleware,
+  validationIdProducto, //validacion parte 1
+  validationMiddleware, // validacion parte 2
   getProductController
 ); //
 
 routerProducto.post(
   "/",
-  authMiddleware,
+  authMiddleware, //requiere autenticacion
   validationPostProducto,
   validationMiddleware,
   createProductController
