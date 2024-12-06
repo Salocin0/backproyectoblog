@@ -11,55 +11,33 @@ import { brotliMiddleware } from "./middleware/brotlimiddleware.js";
 import routerUsuario from "./router/routerUsuario.js";
 import { authMiddleware } from "./middleware/authmiddleware.js";
 import { logger } from "./config/Winston.js";
-
 env.config();
 const PORT = process.env.PORT || 3000;
-
 const app = express();
-
+//midleware de json
 app.use(express.json());
+//middleware de cors
 app.use(cors(
   {
     origin: "*",
     allowedHeaders: ["Content-Type", "Authorization","x-refresh-token"],
   }
 ));
-
+//middleware de log
 app.use((req, res, next) => {
   logger.error(`${req.method} ${req.url}`);
   next();
 });
-
-/*app.use(
-  compression({
-    filter: (req, res) => {
-      return compression.filter(req, res);
-    },
-    threshold: 1024, // Tamaño mínimo en bytes para comprimir (1 KB)
-    level: 9, // Nivel de compresión (0-9, donde 9 es máxima compresión)
-  })
-);*/
-
-/*app.use(
-  compression({
-      brotli: {
-          enabled: true,
-          zlib: zlib.constants.BROTLI_PARAM_QUALITY,
-      },
-  })
-);*/
-
+//rutas
 app.use("/productos", routerProducto);
 app.use("/blogs", routerBlog);
 app.use("/autores", routerAutor);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/auth", routerUsuario)
-
+//rutas de pueba
 app.get("/protected",authMiddleware, (req, res) => {
   res.json({ message: "Acceso permitido", user: req.user });
 });
-
-
 app.get("/pruebacompresion",brotliMiddleware, (req, res) => {
   const productos = Array.from({ length: 10000 }, (_, i) => ({
     id: i + 1,
@@ -70,11 +48,11 @@ app.get("/pruebacompresion",brotliMiddleware, (req, res) => {
   }));
   res.json(productos);
 })
-
+//middleware de error 404
 app.use((req, res) => {
   res.status(404).send("<h1>404<h1>");
 });
-
+//conexion a la base de datos
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {

@@ -9,6 +9,15 @@ import {
   getProductsFiltrados
 } from "../service/serviceProducto.js";
 import { validationResult } from "express-validator";
+
+////////////////////////controller de producto////////////////////////
+//                                                                  //
+//   este componente extrae las variables de la peticion,           //
+//   se las pasa al service y retorna el resultado                  //
+//                                                                  //
+//////////////////////////////////////////////////////////////////////
+
+//solicita todos los productos y los devuelve
 export const getProductsController = async (req, res) => {
   try {
     const products = await getProducts();
@@ -18,7 +27,7 @@ export const getProductsController = async (req, res) => {
     res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca los query params de la peticion, se los pasa al service y retorna el resultado
 export const getProductsFiltradosController = async (req, res) => {
   try {
     const {nombre,precioMin,precioMax,orderby,order} = req.query;
@@ -29,7 +38,7 @@ export const getProductsFiltradosController = async (req, res) => {
     res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca los query params de la peticion, se los pasa al service y retorna el resultado
 export const getProductsPaginadoController = async (req, res) => {
   try {
     const {page = 1, limit = 2} = req.query; //localhost:3000/productos?page=1&limit=2
@@ -40,7 +49,7 @@ export const getProductsPaginadoController = async (req, res) => {
     res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca el id de params de la peticion, se los pasa al service y retorna el resultado
 export const getProductController = async (req, res) => {
   try {
     const id = req.params.id;
@@ -53,7 +62,7 @@ export const getProductController = async (req, res) => {
     res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca las variables del body de la peticion, se los pasa al service y retorna el resultado
 export const createProductController = async (req, res) => {
   try {
     const { nombre, precio } = req.body;
@@ -68,7 +77,7 @@ export const createProductController = async (req, res) => {
     return res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca las variables del body de la peticion, se los pasa al service y retorna el resultado
 export const updateProductController = async (req, res) => {
   try {
     const id = req.params.id;
@@ -79,7 +88,7 @@ export const updateProductController = async (req, res) => {
     return res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca el id de params de la peticion, se los pasa al service y retorna el resultado
 export const deleteProductController = async (req, res) => {
   try {
     const id = req.params.id;
@@ -89,7 +98,7 @@ export const deleteProductController = async (req, res) => {
     return res.status(500).json({status: "error", menssage: "error en el servidor", data:{}});
   }
 };
-
+//saca el id de params de la peticion, se los pasa al service y retorna el resultado
 export const deleteDefinitiveProductController = async (req, res) => {
     try {
         const id = req.params.id;
