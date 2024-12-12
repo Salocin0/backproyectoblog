@@ -1,3 +1,15 @@
 {"level":"error","message":"GET /blogs/e0cacddf-b900-4ccf-98d9-2ad75c1ee094","timestamp":"2024-12-03T23:10:19.735Z"}
 {"level":"error","message":"GET /blogs/e0cacddf-b900-4ccf-98d9-2ad75c1ee094","timestamp":"2024-12-03T23:11:10.677Z"}
 {"level":"error","message":"GET /blogs/e0cacddf-b900-4ccf-98d9-2ad75c1ee094","timestamp":"2024-12-03T23:17:16.071Z"}
+{"level":"error","message":"GET /blogs","timestamp":"2024-12-10T21:23:04.020Z"}
+{"level":"error","message":"POST /movies","timestamp":"2024-12-12T21:57:33.723Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:57:44.885Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:57:57.431Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:58:40.368Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:58:57.729Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:00:37.942Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:04:03.710Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:06:31.880Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:07:13.915Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:08:54.660Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T22:10:19.428Z"}

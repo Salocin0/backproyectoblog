@@ -1,0 +1,5 @@
+{"level":"error","message":"POST /movies","timestamp":"2024-12-12T21:57:33.723Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:57:44.885Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:57:57.431Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:58:40.368Z"}
+{"level":"error","message":"GET /movies","timestamp":"2024-12-12T21:58:57.729Z"}

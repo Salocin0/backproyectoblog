@@ -11,6 +11,7 @@ import { brotliMiddleware } from "./middleware/brotlimiddleware.js";
 import routerUsuario from "./router/routerUsuario.js";
 import { authMiddleware } from "./middleware/authmiddleware.js";
 import { logger } from "./config/Winston.js";
+import Movies from "./model/modelPelicula.js";
 env.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -37,6 +38,29 @@ app.use("/auth", routerUsuario)
 //rutas de pueba
 app.get("/protected",authMiddleware, (req, res) => {
   res.json({ message: "Acceso permitido", user: req.user });
+});
+
+app.post("/movies", async (req, res) => {
+  const movie = {
+    plot: "plot",
+    runtime: 0,
+    poster: "poster",
+    title:"title",
+    fullplot: "fullplot",
+    rated: "rated",
+    year : 2024,
+    released: "released",
+    director: "director",
+    type:"type",
+  }
+  const movies = await Movies.create(movie)
+  res.status(200).send(movies)
+});
+
+app.get("/movies",brotliMiddleware, async (req, res) => {
+
+  const movies = await Movies.find({})
+  res.status(200).send(movies)
 });
 app.get("/pruebacompresion",brotliMiddleware, (req, res) => {
   const productos = Array.from({ length: 10000 }, (_, i) => ({
